@@ -4,6 +4,7 @@ import com.shabic.farm.application.command.RegisterFarmCommand;
 import com.shabic.farm.application.command.UpdateFarmCommand;
 import com.shabic.farm.application.messaging.FarmEventPublisher;
 import com.shabic.farm.domain.events.FarmCreated;
+import com.shabic.farm.domain.events.FarmDeleted;
 import com.shabic.farm.domain.model.aggregate.Farm;
 import com.shabic.farm.domain.model.valueobject.GeoLocation;
 import com.shabic.farm.domain.repository.FarmRepository;
@@ -33,6 +34,7 @@ class FarmServiceTest {
 
 	@Captor private ArgumentCaptor<Farm> farmCaptor;
 	@Captor private ArgumentCaptor<FarmCreated> farmCreatedCaptor;
+	@Captor private ArgumentCaptor<FarmDeleted> farmDeletedCaptor;
 
 	private FarmService service;
 
@@ -172,12 +174,17 @@ class FarmServiceTest {
 	}
 
 	@Test
-	void delete_removesFarm_whenExists() {
+	void delete_publishesEventAndRemovesFarm_whenExists() {
 		UUID farmId = UUID.randomUUID();
 		when(farmRepo.findById(farmId)).thenReturn(Optional.of(existingFarm(farmId, null)));
 
 		service.delete(farmId);
 
+		verify(farmEventPublisher).publishFarmDeleted(farmDeletedCaptor.capture());
+		FarmDeleted published = farmDeletedCaptor.getValue();
+		assertThat(published.farmId()).isEqualTo(farmId);
+		assertThat(published.eventType()).isEqualTo("FarmDeleted");
+		assertThat(published.timestamp()).isNotNull();
 		verify(farmRepo).deleteById(farmId);
 	}
 
@@ -191,6 +198,7 @@ class FarmServiceTest {
 				.hasMessage("farm not found");
 
 		verify(farmRepo, never()).deleteById(any());
+		verify(farmEventPublisher, never()).publishFarmDeleted(any());
 	}
 
 	@Test

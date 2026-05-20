@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.shabic.farm.application.service.FarmServiceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-17T13:33:44.923Z" hostname="YOUSSEF" time="0.382">
+<testsuite name="com.shabic.farm.application.service.FarmServiceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-05-17T14:29:14.086Z" hostname="YOUSSEF" time="0.535">
   <properties/>
-  <testcase name="register_rejectsDuplicateRegisterId_afterNormalization()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.312"/>
-  <testcase name="update_rejectsWhenFarmNotFound()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.006"/>
-  <testcase name="getAll_delegatesToRepository()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.014"/>
-  <testcase name="update_rejectsDuplicateRegisterId_ownedByAnotherFarm()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.005"/>
-  <testcase name="getDetails_returnsFarm_orThrows()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.004"/>
-  <testcase name="register_savesNewFarm_andReturnsId()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.012"/>
-  <testcase name="delete_removesFarm_whenExists()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.003"/>
-  <testcase name="register_rejectsPartialLocation()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.003"/>
-  <testcase name="update_savesRehydratedFarm_preservingCreatedAt()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.006"/>
-  <testcase name="delete_throwsWhenFarmNotFound()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.009"/>
+  <testcase name="register_rejectsDuplicateRegisterId_afterNormalization()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.435"/>
+  <testcase name="update_rejectsWhenFarmNotFound()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.008"/>
+  <testcase name="getAll_delegatesToRepository()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.027"/>
+  <testcase name="update_rejectsDuplicateRegisterId_ownedByAnotherFarm()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.008"/>
+  <testcase name="getDetails_returnsFarm_orThrows()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.007"/>
+  <testcase name="register_savesNewFarm_andReturnsId()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.017"/>
+  <testcase name="delete_publishesEventAndRemovesFarm_whenExists()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.005"/>
+  <testcase name="register_rejectsPartialLocation()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.005"/>
+  <testcase name="update_savesRehydratedFarm_preservingCreatedAt()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.004"/>
+  <testcase name="delete_throwsWhenFarmNotFound()" classname="com.shabic.farm.application.service.FarmServiceTest" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

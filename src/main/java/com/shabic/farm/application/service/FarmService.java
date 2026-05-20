@@ -4,6 +4,7 @@ import com.shabic.farm.application.command.RegisterFarmCommand;
 import com.shabic.farm.application.command.UpdateFarmCommand;
 import com.shabic.farm.application.messaging.FarmEventPublisher;
 import com.shabic.farm.domain.events.FarmCreated;
+import com.shabic.farm.domain.events.FarmDeleted;
 import com.shabic.farm.domain.model.aggregate.Farm;
 import com.shabic.farm.domain.model.valueobject.GeoLocation;
 import com.shabic.farm.domain.repository.FarmRepository;
@@ -89,6 +90,8 @@ public class FarmService {
 		if (farmRepo.findById(farmId).isEmpty()) {
 			throw new IllegalArgumentException("farm not found");
 		}
+		Instant deletedAt = Instant.now();
+		farmEventPublisher.publishFarmDeleted(new FarmDeleted(farmId, deletedAt));
 		farmRepo.deleteById(farmId);
 	}
 
