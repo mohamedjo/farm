@@ -65,6 +65,7 @@ class FarmServiceTest {
 		assertThat(saved.getName()).isEqualTo("Green Valley");
 		assertThat(saved.getRegion()).isEqualTo("Riyadh");
 		assertThat(saved.getRegisterId()).isEqualTo("REG-001");
+		assertThat(saved.getNumberOfAnimals()).isZero();
 		assertThat(saved.getLocation()).isEqualTo(new GeoLocation(24.7136, 46.6753));
 
 		verify(farmEventPublisher).publishFarmCreated(farmCreatedCaptor.capture());
@@ -145,6 +146,7 @@ class FarmServiceTest {
 				null,
 				"REG-1",
 				null,
+				3,
 				createdAt
 		);
 		when(farmRepo.findById(farmId)).thenReturn(Optional.of(existing));
@@ -170,6 +172,7 @@ class FarmServiceTest {
 		assertThat(saved.getName()).isEqualTo("New Name");
 		assertThat(saved.getRegion()).isEqualTo("New Region");
 		assertThat(saved.getRegisterId()).isEqualTo("REG-2");
+		assertThat(saved.getNumberOfAnimals()).isEqualTo(3);
 		assertThat(saved.getCreatedAt()).isEqualTo(createdAt);
 	}
 
@@ -246,6 +249,7 @@ class FarmServiceTest {
 				null,
 				registerId,
 				null,
+				0,
 				Instant.parse("2024-01-01T00:00:00Z")
 		);
 	}

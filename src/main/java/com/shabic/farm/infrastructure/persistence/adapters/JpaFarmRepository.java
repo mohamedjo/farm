@@ -44,4 +44,9 @@ public class JpaFarmRepository implements FarmRepository {
 	public void deleteById(UUID id) {
 		jpa.deleteById(id);
 	}
+
+	@Override
+	public boolean incrementAnimalCount(UUID farmId) {
+		return jpa.incrementAnimalCount(farmId) > 0;
+	}
 }
