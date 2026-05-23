@@ -25,6 +25,7 @@ public final class Farm {
 	private final String email;
 	private final String registerId;
 	private final String phoneNumber;
+	private final int numberOfAnimals;
 	private final Instant createdAt;
 
 	private static String blankToNull(String value) {
@@ -43,11 +44,15 @@ public final class Farm {
 			String email,
 			String registerId,
 			String phoneNumber,
+			int numberOfAnimals,
 			Instant createdAt
 	) {
 		Objects.requireNonNull(id, "id");
 		if (name == null || name.isBlank()) {
 			throw new IllegalArgumentException("name is required");
+		}
+		if (numberOfAnimals < 0) {
+			throw new IllegalArgumentException("numberOfAnimals cannot be negative");
 		}
 		Objects.requireNonNull(createdAt, "createdAt");
 		return new Farm(
@@ -59,6 +64,7 @@ public final class Farm {
 				blankToNull(email),
 				blankToNull(registerId),
 				blankToNull(phoneNumber),
+				numberOfAnimals,
 				createdAt
 		);
 	}
@@ -74,7 +80,7 @@ public final class Farm {
 			String phoneNumber,
 			Instant now
 	) {
-		return create(id, name, region, address, location, email, registerId, phoneNumber, now);
+		return create(id, name, region, address, location, email, registerId, phoneNumber, 0, now);
 	}
 
 	public static Farm rehydrate(
@@ -86,8 +92,9 @@ public final class Farm {
 			String email,
 			String registerId,
 			String phoneNumber,
+			int numberOfAnimals,
 			Instant createdAt
 	) {
-		return create(id, name, region, address, location, email, registerId, phoneNumber, createdAt);
+		return create(id, name, region, address, location, email, registerId, phoneNumber, numberOfAnimals, createdAt);
 	}
 }

@@ -21,5 +21,6 @@ public class FarmResponse {
 	private String email;
 	private String registerId;
 	private String phoneNumber;
+	private int numberOfAnimals;
 	private Instant createdAt;
 }

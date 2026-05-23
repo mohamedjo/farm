@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-17T16:33:17+0300",
+    date = "2026-05-22T23:33:41+0300",
     comments = "version: 1.6.3, compiler: IncrementalProcessingEnvironment from gradle-language-java-9.4.1.jar, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
@@ -30,6 +30,7 @@ public class FarmPersistenceMapperImpl implements FarmPersistenceMapper {
         farmEntity.email( farm.getEmail() );
         farmEntity.registerId( farm.getRegisterId() );
         farmEntity.phoneNumber( farm.getPhoneNumber() );
+        farmEntity.numberOfAnimals( farm.getNumberOfAnimals() );
         farmEntity.createdAt( farm.getCreatedAt() );
 
         return farmEntity.build();

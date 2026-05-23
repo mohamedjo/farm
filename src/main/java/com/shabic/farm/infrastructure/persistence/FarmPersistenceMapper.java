@@ -24,6 +24,7 @@ public interface FarmPersistenceMapper {
 				entity.getEmail(),
 				entity.getRegisterId(),
 				entity.getPhoneNumber(),
+				entity.getNumberOfAnimals(),
 				entity.getCreatedAt()
 		);
 	}

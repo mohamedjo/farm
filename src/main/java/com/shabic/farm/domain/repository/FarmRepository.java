@@ -16,4 +16,6 @@ public interface FarmRepository {
 	void save(Farm farm);
 
 	void deleteById(UUID id);
+
+	boolean incrementAnimalCount(UUID farmId);
 }

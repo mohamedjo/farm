@@ -78,6 +78,7 @@ public class FarmService {
 				details.email(),
 				normalizedRegisterId,
 				details.phoneNumber(),
+				existingFarm.getNumberOfAnimals(),
 				existingFarm.getCreatedAt()
 		);
 

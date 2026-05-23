@@ -47,6 +47,9 @@ public class FarmEntity {
 	@Column(name = "phone_number", length = 64)
 	private String phoneNumber;
 
+	@Column(name = "number_of_animals", nullable = false)
+	private int numberOfAnimals;
+
 	@Column(name = "created_at", nullable = false)
 	private Instant createdAt;
 }
