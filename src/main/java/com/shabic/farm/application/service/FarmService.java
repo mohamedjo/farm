@@ -1,5 +1,6 @@
 package com.shabic.farm.application.service;
 
+import com.shabic.farm.api.exception.FarmNotFoundException;
 import com.shabic.farm.application.command.RegisterFarmCommand;
 import com.shabic.farm.application.command.UpdateFarmCommand;
 import com.shabic.farm.application.messaging.FarmEventPublisher;
@@ -57,7 +58,7 @@ public class FarmService {
 	@Transactional
 	public Farm update(UpdateFarmCommand command) {
 		Farm existingFarm = farmRepo.findById(command.farmId())
-				.orElseThrow(() -> new IllegalArgumentException("farm not found"));
+				.orElseThrow(FarmNotFoundException::new);
 		RegisterFarmCommand details = command.details();
 
 		String normalizedRegisterId = normalizeOptionalString(details.registerId());
@@ -89,7 +90,7 @@ public class FarmService {
 	@Transactional
 	public void delete(UUID farmId) {
 		if (farmRepo.findById(farmId).isEmpty()) {
-			throw new IllegalArgumentException("farm not found");
+			throw new FarmNotFoundException();
 		}
 		Instant deletedAt = Instant.now();
 		farmEventPublisher.publishFarmDeleted(new FarmDeleted(farmId, deletedAt));
@@ -104,7 +105,7 @@ public class FarmService {
 	@Transactional(readOnly = true)
 	public Farm getDetails(UUID farmId) {
 		return farmRepo.findById(farmId)
-				.orElseThrow(() -> new IllegalArgumentException("farm not found"));
+				.orElseThrow(FarmNotFoundException::new);
 	}
 
 	private static GeoLocation toGeoLocation(Double latitude, Double longitude) {

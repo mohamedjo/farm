@@ -1,5 +1,6 @@
 package com.shabic.farm.api.controllers;
 
+import com.shabic.farm.api.exception.FarmNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,11 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
+	@ExceptionHandler(FarmNotFoundException.class)
+	public ResponseEntity<ApiError> notFound(FarmNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiError("NOT_FOUND", e.getMessage()));
+	}
+
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<ApiError> badRequest(IllegalArgumentException e) {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError("BAD_REQUEST", e.getMessage()));

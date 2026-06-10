@@ -3,6 +3,8 @@ package com.shabic.farm.infrastructure.messaging;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shabic.farm.application.messaging.FarmEventPublisher;
+import com.shabic.farm.config.correlation.CorrelationIdContext;
+import com.shabic.farm.config.correlation.CorrelationIdKafka;
 import com.shabic.farm.domain.events.FarmCreated;
 import com.shabic.farm.domain.events.FarmDeleted;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,11 @@ public class KafkaFarmEventPublisher implements FarmEventPublisher {
 	private void publish(String topic, String key, Object event) {
 		try {
 			String payload = objectMapper.writeValueAsString(event);
-			kafkaTemplate.send(topic, key, payload);
+			kafkaTemplate.send(CorrelationIdKafka.producerRecord(
+					topic,
+					key,
+					payload,
+					CorrelationIdContext.get().orElse(null)));
 		} catch (JsonProcessingException e) {
 			throw new IllegalStateException("Failed to serialize farm event", e);
 		}

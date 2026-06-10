@@ -1,5 +1,6 @@
 package com.shabic.farm.application.service;
 
+import com.shabic.farm.api.exception.FarmNotFoundException;
 import com.shabic.farm.application.command.RegisterFarmCommand;
 import com.shabic.farm.application.command.UpdateFarmCommand;
 import com.shabic.farm.application.messaging.FarmEventPublisher;
@@ -113,7 +114,7 @@ class FarmServiceTest {
 		when(farmRepo.findById(farmId)).thenReturn(Optional.empty());
 
 		assertThatThrownBy(() -> service.update(cmd))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(FarmNotFoundException.class)
 				.hasMessage("farm not found");
 	}
 
@@ -197,7 +198,7 @@ class FarmServiceTest {
 		when(farmRepo.findById(farmId)).thenReturn(Optional.empty());
 
 		assertThatThrownBy(() -> service.delete(farmId))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(FarmNotFoundException.class)
 				.hasMessage("farm not found");
 
 		verify(farmRepo, never()).deleteById(any());
@@ -214,7 +215,7 @@ class FarmServiceTest {
 
 		when(farmRepo.findById(id)).thenReturn(Optional.empty());
 		assertThatThrownBy(() -> service.getDetails(id))
-				.isInstanceOf(IllegalArgumentException.class)
+				.isInstanceOf(FarmNotFoundException.class)
 				.hasMessage("farm not found");
 	}
 
