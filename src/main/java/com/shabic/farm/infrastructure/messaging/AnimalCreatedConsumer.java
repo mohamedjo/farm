@@ -3,6 +3,7 @@ package com.shabic.farm.infrastructure.messaging;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shabic.farm.application.service.FarmAnimalCountService;
 import com.shabic.farm.domain.events.LivestockAnimalCreated;
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ public class AnimalCreatedConsumer {
 	private final FarmAnimalCountService farmAnimalCountService;
 
 	@KafkaListener(topics = "${farm.kafka.topics.animal-created}")
+	@Observed(name = "kafka.consume.animal-created")
 	public void onAnimalCreated(String payload) {
 		try {
 			LivestockAnimalCreated event = objectMapper.readValue(payload, LivestockAnimalCreated.class);
